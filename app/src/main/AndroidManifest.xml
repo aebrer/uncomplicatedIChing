@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="me.brereton.iching"
+    android:versionCode="18"
+    android:versionName="2.0.1">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".cast_hexagram"
+            android:label="@string/title_activity_cast_hexagram"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.brereton.iching.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view_history"
+            android:label="@string/title_activity_view_history"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.brereton.iching.MainActivity" />
+        </activity>
+        <activity
+            android:name=".calculate_hexagram"
+            android:label="@string/title_activity_calculate_hexagram" >
+        </activity>
+    </application>
+</manifest>
