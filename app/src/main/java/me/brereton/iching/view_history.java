@@ -40,7 +40,7 @@ public class view_history extends ActionBarActivity {
 
         int resId = this.getResources().getIdentifier(first_hex_call, "string", this.getPackageName());
         String first_hex = get_hexagram_ascii(hexagram) + "\n" + this.getResources().getString(resId);
-        reading = String.valueOf(date) + "\n\n" + question + "\n" + first_hex;
+        reading = String.valueOf(date) + "\n\n" + question + "\n\n\n" + first_hex;
 
         for(int i=0;i<6;i++) {
             int line = (int) hexagram.get(i);

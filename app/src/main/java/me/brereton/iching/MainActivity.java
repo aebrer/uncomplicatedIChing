@@ -69,7 +69,8 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public String toString() {
-            return this.date + ": " + this.question;
+            if (this.question.equals("dummy_record")) {return "";} else {return this.date + ":\n" + this.question;}
+
         }
 
 
@@ -212,19 +213,20 @@ public class MainActivity extends ActionBarActivity {
                 // ListView Clicked item value
                 ReadingRecord record = (ReadingRecord) lv.getItemAtPosition(position);
 
-                String record_string = "";
+                if (record.question.equals("dummy_record")) {} else{
+                    String record_string = "";
 
-                try {
-                    record_string = MainActivity.toString(record);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    try {
+                        record_string = MainActivity.toString(record);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Intent intent = new Intent(getApplicationContext(), view_history.class);
+                    intent.putExtra("record", record_string);
+                    startActivity(intent);
+
                 }
-
-                Intent intent = new Intent(getApplicationContext(), view_history.class);
-                intent.putExtra("record", record_string);
-                startActivity(intent);
-
-
 
 
             }
