@@ -1,9 +1,12 @@
 package me.brereton.iching;
+        import android.app.Activity;
         import android.content.Context;
+        import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.SharedPreferences;
         import android.support.v7.app.ActionBarActivity;
         import android.os.Bundle;
+        import android.support.v7.app.AlertDialog;
         import android.util.Base64;
         import android.util.Log;
         import android.view.MenuItem;
@@ -138,13 +141,13 @@ public class MainActivity extends ActionBarActivity {
         // get the record list
         ArrayList<ReadingRecord> history_array = new ArrayList<ReadingRecord>();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("me.brereton.iching", Context.MODE_PRIVATE);
-        String history_array_string = sharedPreferences.getString("history", "");
+        final SharedPreferences sharedPreferences = getSharedPreferences("me.brereton.iching", Context.MODE_PRIVATE);
+        final String[] history_array_string = {sharedPreferences.getString("history", "")};
 
-        Log.d("debugstring", history_array_string);
+        Log.d("debugstring", history_array_string[0]);
         Object debug = null;
         try {
-            debug = MainActivity.fromString(history_array_string);
+            debug = MainActivity.fromString(history_array_string[0]);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -154,7 +157,7 @@ public class MainActivity extends ActionBarActivity {
         if (debug != null) {
 
             try {
-                history_array = (ArrayList<MainActivity.ReadingRecord>) MainActivity.fromString(history_array_string);
+                history_array = (ArrayList<MainActivity.ReadingRecord>) MainActivity.fromString(history_array_string[0]);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassCastException e) {
@@ -197,7 +200,7 @@ public class MainActivity extends ActionBarActivity {
         Collections.reverse(history_array);
 
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, history_array);
+        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, history_array);
 
 
 
@@ -232,6 +235,71 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        final ArrayList<ReadingRecord> finalHistory_array = history_array;
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           final int position, long arg3) {
+
+                // ListView Clicked item value
+                ReadingRecord record = (ReadingRecord) lv.getItemAtPosition(position);
+
+                if (record.question.equals("dummy_record")) {} else{
+
+
+                    AlertDialog.Builder alert = new AlertDialog.Builder(
+                            MainActivity.this);
+                    alert.setTitle("Remove Record");
+                    alert.setMessage("Are you sure you want to delete this record?");
+                    alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            finalHistory_array.remove(position);
+
+                            //reverse the order of the list in order to store it in the correct order
+                            Collections.reverse(finalHistory_array);
+
+                            try {
+                                history_array_string[0] = MainActivity.toString(finalHistory_array);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("history", history_array_string[0]);
+                            editor.commit();
+
+                            //reverse the order again in order to display it correctly
+                            Collections.reverse(finalHistory_array);
+                            adapter.notifyDataSetChanged();
+
+
+                            dialog.dismiss();
+
+                        }
+                    });
+                    alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.dismiss();
+                        }
+                    });
+
+                    alert.show();
+
+                }
+
+
+                return true;
+            }
+        });
 
 
 

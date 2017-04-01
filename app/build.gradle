@@ -10,8 +10,8 @@ android {
         applicationId "me.brereton.iching2"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 19
-        versionName "2.1.0"
+        versionCode 20
+        versionName "2.2.0"
     }
     buildTypes {
         release {
