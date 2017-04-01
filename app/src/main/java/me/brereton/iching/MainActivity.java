@@ -1,5 +1,4 @@
 package me.brereton.iching;
-        import android.app.Activity;
         import android.content.Context;
         import android.content.DialogInterface;
         import android.content.Intent;
@@ -16,7 +15,6 @@ package me.brereton.iching;
         import android.widget.CheckBox;
         import android.widget.EditText;
         import android.widget.ListView;
-        import android.widget.Toast;
 
         import java.io.ByteArrayInputStream;
         import java.io.ByteArrayOutputStream;
@@ -58,6 +56,8 @@ public class MainActivity extends ActionBarActivity {
 
 
     public static class ReadingRecord implements java.io.Serializable{
+
+        // this "record" is the object that stores the details required for a given reading
         public String question;
         public Date date;
         public ArrayList<Integer> hexagram;
@@ -70,6 +70,7 @@ public class MainActivity extends ActionBarActivity {
 
         }
 
+        // this is to show the right text in the listview being displayed on the main screen
         @Override
         public String toString() {
             if (this.question.equals("dummy_record")) {return "";} else {return this.date + ":\n" + this.question;}
@@ -89,12 +90,6 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    public void viewHistory(View view) {
-        // Do something in response to the button
-
-        Intent intent = new Intent(this, view_history.class);
-        startActivity(intent);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,7 +220,7 @@ public class MainActivity extends ActionBarActivity {
                         e.printStackTrace();
                     }
 
-                    Intent intent = new Intent(getApplicationContext(), view_history.class);
+                    Intent intent = new Intent(getApplicationContext(), view_reading.class);
                     intent.putExtra("record", record_string);
                     startActivity(intent);
 
@@ -243,6 +238,9 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            final int position, long arg3) {
+
+                // on long click prompt user to delete record
+
 
                 // ListView Clicked item value
                 ReadingRecord record = (ReadingRecord) lv.getItemAtPosition(position);
