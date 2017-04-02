@@ -1,6 +1,7 @@
 package me.brereton.iching
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.ActionBarActivity
@@ -15,6 +16,12 @@ import java.util.Date
 
 class view_reading : ActionBarActivity() {
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent);
+        finish();
+    }
 
     fun transitional(hexagram: ArrayList<Int>?, date: Date?, question: String?) {
 
