@@ -17,7 +17,6 @@ import java.util.Date
 class view_reading : ActionBarActivity() {
 
     override fun onBackPressed() {
-        super.onBackPressed()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent);
         finish();

@@ -26,6 +26,12 @@ import java.util.Date
 
 class MainActivity : ActionBarActivity() {
 
+    override fun onBackPressed() {
+        val startMain = Intent(Intent.ACTION_MAIN)
+        startMain.addCategory(Intent.CATEGORY_HOME)
+        startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(startMain)
+    }
 
     class ReadingRecord(// this "record" is the object that stores the details required for a given reading
             var question: String, var date: Date, var hexagram: ArrayList<Int>) : java.io.Serializable {
