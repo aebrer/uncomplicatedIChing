@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.ActionBarActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.text.InputType
 import android.util.Base64
 import android.view.MenuItem
 import android.view.View
@@ -49,6 +50,7 @@ class MainActivity : ActionBarActivity() {
 
         val intent = Intent(this, cast_hexagram::class.java)
         val editText = findViewById(R.id.edit_message) as EditText
+        editText.setInputType(InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
         val message = editText.text.toString()
         intent.putExtra(EXTRA_MESSAGE, message)
         startActivity(intent)
