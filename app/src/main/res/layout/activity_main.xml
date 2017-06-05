@@ -16,7 +16,7 @@
         android:layout_height="match_parent">
 
         <EditText android:id="@+id/edit_message"
-            android:inputType="textCapSentences"
+            android:inputType="textCapSentences|textAutoCorrect"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/question"
