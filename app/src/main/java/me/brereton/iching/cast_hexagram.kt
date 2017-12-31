@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.ActionBarActivity
 import android.os.Bundle
+import android.util.Log
 import java.io.IOException
 import java.security.SecureRandom
 import java.util.ArrayList
@@ -50,16 +51,59 @@ class cast_hexagram : ActionBarActivity() {
 
         // get the message from the intent
         val intent = intent
-        val question = intent.getStringExtra(MainActivity.EXTRA_MESSAGE)
+        val pre_question = intent.getStringExtra(MainActivity.EXTRA_MESSAGE)
+        var question = ""
+
 
         // need to store these as one object, called the hexagram
-
         val hexagram = ArrayList<Int>()
 
-        for (i in 0..5) {
-            val toss = _toss
-            hexagram.add(toss)
+
+        try {
+            // is there a precomputed hexagram?
+            val precomp_str = pre_question.substring(0,6)
+            val precomp_int = precomp_str.toInt()
+
+            if (precomp_int in 666666..999999) {
+
+                val tmp_question = pre_question.substring(6)
+                question = tmp_question.substringAfter(" ")
+                // parse the provided hexagram
+                for (i in 0..5) {
+                    // Log.d("debug!", precomp_str[i].toString())
+                    val toss = precomp_str[i].toString().toInt()
+                    hexagram.add(toss)
+                }
+
+                // Log.d("it should have worked?", hexagram.toString())
+
+            } else {
+                // this is what it should do if there is not already a hexagram provided
+                question = pre_question
+
+                for (i in 0..5) {
+                    val toss = _toss
+                    hexagram.add(toss)
+                }
+
+                // Log.d("it almost worked?", hexagram.toString())
+            }
+
+        } catch (e: Exception) {
+            // this is what it should do if there is not already a hexagram provided
+            question = pre_question
+            for (i in 0..5) {
+                val toss = _toss
+                hexagram.add(toss)
+            }
+
+            // Log.d("it worked?", hexagram.toString())
+
         }
+
+
+
+
 
 
         // should now store the date, question, and hexagram in the persistent memory
