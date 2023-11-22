@@ -2,9 +2,9 @@ package me.brereton.iching
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.ActionBarActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.text.InputType
 import android.util.Base64
 import android.view.MenuItem
@@ -25,7 +25,7 @@ import java.util.Collections
 import java.util.Date
 
 
-class MainActivity : ActionBarActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val startMain = Intent(Intent.ACTION_MAIN)
@@ -96,7 +96,7 @@ class MainActivity : ActionBarActivity() {
 
 
         try {
-            history_array = MainActivity.fromString(history_array_string[0]) as ArrayList<MainActivity.ReadingRecord>
+            history_array = MainActivity.fromString(history_array_string[0]!!) as ArrayList<MainActivity.ReadingRecord>
         } catch (e: IOException) {
             e.printStackTrace()
         } catch (e: ClassCastException) {

@@ -3,7 +3,7 @@ package me.brereton.iching
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.ActionBarActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import java.io.IOException
@@ -12,7 +12,7 @@ import java.util.ArrayList
 import java.util.Date
 
 
-class cast_hexagram : ActionBarActivity() {
+class cast_hexagram : AppCompatActivity() {
 
 
     // init the RNG
@@ -51,7 +51,7 @@ class cast_hexagram : ActionBarActivity() {
 
         // get the message from the intent
         val intent = intent
-        val pre_question = intent.getStringExtra(MainActivity.EXTRA_MESSAGE)
+        val pre_question = intent.getStringExtra(MainActivity.EXTRA_MESSAGE)!!
         var question = ""
 
 
@@ -114,7 +114,7 @@ class cast_hexagram : ActionBarActivity() {
         var history_array = ArrayList<MainActivity.ReadingRecord>()
 
         val sharedPreferences = getSharedPreferences("me.brereton.iching", Context.MODE_PRIVATE)
-        var history_array_string: String = sharedPreferences.getString("history", "")
+        var history_array_string: String = sharedPreferences.getString("history", "")!!
 
 
         try {

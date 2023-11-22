@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.ActionBarActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -14,7 +14,7 @@ import java.util.ArrayList
 import java.util.Date
 
 
-class view_reading : ActionBarActivity() {
+class view_reading : AppCompatActivity() {
 
     override fun onBackPressed() {
         val intent = Intent(this, MainActivity::class.java)
@@ -367,7 +367,7 @@ class view_reading : ActionBarActivity() {
         val record_string = intent.getStringExtra("record")
         var record: MainActivity.ReadingRecord? = null
         try {
-            record = MainActivity.fromString(record_string) as MainActivity.ReadingRecord
+            record = MainActivity.fromString(record_string!!) as MainActivity.ReadingRecord
         } catch (e: IOException) {
             e.printStackTrace()
         } catch (e: ClassNotFoundException) {
